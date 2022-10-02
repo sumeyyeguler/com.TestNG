@@ -15,7 +15,7 @@ public class C03_PageClassKullanimi {
         // facebook anasayfaya gidin
         Driver.getDriver().get("https://www.facebook.com");
         // cikarsa cookies kabul edin
-        facebookPage.cookieButonu.click();
+        //facebookPage.cookieButonu.click();
         // kullanici mail kutusuna rastgele bir isim yazdirin
         Faker faker=new Faker();
         facebookPage.mailKutusu.sendKeys(faker.internet().emailAddress());
