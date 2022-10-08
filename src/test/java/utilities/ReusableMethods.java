@@ -1,25 +1,20 @@
 package utilities;
-
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.function.Function;
 
 public class ReusableMethods {
-    //========ScreenShot(Sayfanın resmini alma)=====//
+
     public static String getScreenshot(String name) throws IOException {
         // naming the screenshot with the current date to avoid duplication
         String date = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
@@ -33,20 +28,8 @@ public class ReusableMethods {
         FileUtils.copyFile(source, finalDestination);
         return target;
     }
-    //========ScreenShot Web Element(Bir webelementin resmini alma)=====//
-    public static String getScreenshotWebElement(String name,WebElement element) throws IOException {
-        String date = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
-        // TakesScreenshot is an interface of selenium that takes the screenshot
-        File source = element.getScreenshotAs(OutputType.FILE);
-        // full path to the screenshot location
-        String wElementSS = System.getProperty("user.dir") + "/target/WElementScreenshots/" + name + date + ".png";
-        File finalDestination = new File(wElementSS);
-        // save the screenshot to the path given
-        FileUtils.copyFile(source, finalDestination);
-        return  wElementSS;
-    }
 
-    //========Switching Window(Pencereler arası geçiş)=====//
+    //========Switching Window=====//
     public static void switchToWindow(String targetTitle) {
         String origin = Driver.getDriver().getWindowHandle();
         for (String handle : Driver.getDriver().getWindowHandles()) {
@@ -58,7 +41,7 @@ public class ReusableMethods {
         Driver.getDriver().switchTo().window(origin);
     }
 
-    //========Hover Over(Elementin üzerinde beklemek)=====//
+    //========Hover Over=====//
     public static void hover(WebElement element) {
         Actions actions = new Actions(Driver.getDriver());
         actions.moveToElement(element).perform();
@@ -118,6 +101,7 @@ public class ReusableMethods {
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
+
     public static void clickWithTimeOut(WebElement element, int timeout) {
         for (int i = 0; i < timeout; i++) {
             try {
@@ -143,5 +127,21 @@ public class ReusableMethods {
             System.out.println(
                     "Timeout waiting for Page Load Request to complete after " + timeout + " seconds");
         }
+    }
+
+    //======Fluent Wait====//
+    public static WebElement fluentWait(final WebElement webElement, int timeout) {
+        //FluentWait<WebDriver> wait = new FluentWait<WebDriver>(Driver.getDriver()).withTimeout(timeinsec, TimeUnit.SECONDS).pollingEvery(timeinsec, TimeUnit.SECONDS);
+        FluentWait<WebDriver> wait = new FluentWait<WebDriver>(Driver.getDriver())
+                .withTimeout(Duration.ofSeconds(3))//Wait 3 second each time
+                .pollingEvery(Duration.ofSeconds(1));//Check for the element every 1 second
+
+        WebElement element = wait.until(new Function<WebDriver, WebElement>() {
+            public WebElement apply(WebDriver driver) {
+                return webElement;
+            }
+        });
+
+        return element;
     }
 }

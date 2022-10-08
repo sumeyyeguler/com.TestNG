@@ -3,8 +3,6 @@ package tests.day17_pom;
 import com.github.javafaker.Faker;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.FacebookPage;
-import utilities.Driver;
 
 public class C03_PageClassKullanimi {
 
