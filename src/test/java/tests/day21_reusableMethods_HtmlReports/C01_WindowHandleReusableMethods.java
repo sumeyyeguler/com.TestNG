@@ -8,7 +8,8 @@ import utilities.ReusableMethods;
 
 import java.util.Set;
 
-public class C01_WindowHandleReusableMethods {
+public class
+C01_WindowHandleReusableMethods {
     @Test
     public void test01() {
         //● https://the-internet.herokuapp.com/windows adresine gidin.

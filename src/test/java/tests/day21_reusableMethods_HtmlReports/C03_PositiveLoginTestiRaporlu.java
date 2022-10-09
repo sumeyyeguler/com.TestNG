@@ -38,5 +38,7 @@ public class C03_PositiveLoginTestiRaporlu extends TestBaseRapor {
         extentTest.pass("kullanici basarili sekilde giris yapti");
         Driver.closeDriver();
 
+
+
     }
 }
