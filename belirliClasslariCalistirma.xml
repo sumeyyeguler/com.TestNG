@@ -15,3 +15,6 @@
             <class name="tests.day17_pom.C01_YeniDriverIlkClass"></class>
         </classes>
   
+  </test>
+
+</suite>
